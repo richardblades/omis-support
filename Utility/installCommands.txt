@@ -1,0 +1,91 @@
+#'------------------------------------------------------------------------------------------
+#'
+#' 	i n s t a l l C o m m a n d s . t x t
+#'
+#' 	Plain text shell commands for Mac OS X and Linux Ubuntu
+#'
+#'------------------------------------------------------------------------------------------
+
+
+
+#-------------------------------------------------------------------------------------------	
+#	Sign into Ubuntu cloud server.
+#-------------------------------------------------------------------------------------------	
+ssh omis@omis-scarborough.uk
+ssh richard@omis-scarborough.uk
+
+#-------------------------------------------------------------------------------------------	
+#	Nullify mailR password before promoting to GitHub else it will be visible.
+#-------------------------------------------------------------------------------------------	
+nano /Users/510147/R/omis/inst/extdata/.mailR
+
+#-------------------------------------------------------------------------------------------	
+#	Install latest version of omis package from GitHub
+#-------------------------------------------------------------------------------------------	
+devtools::install_github("richardblades/omis",auth_token="49dee11a0e81903803002db8411e418459905504")
+
+#-------------------------------------------------------------------------------------------	
+#	Enable writes to /data/ and /extdata/
+#-------------------------------------------------------------------------------------------	
+chmod o+w -R /usr/local/lib/R/site-library/omis/data
+chmod o+w -R /usr/local/lib/R/site-library/omis/extdata 
+
+#-------------------------------------------------------------------------------------------	
+#	Protect gmail password file .mailR - UBUNTU 
+#
+#	rwx	rwx	rwx
+#	u	g	o
+#	r--	r--	---
+#	4	4	0
+#
+#-------------------------------------------------------------------------------------------	
+chown www-data:www-data /usr/local/lib/R/site-library/omis/extdata/.mailR
+chmod 440 /usr/local/lib/R/site-library/omis/extdata/.mailR
+nano /usr/local/lib/R/site-library/omis/extdata/.mailR
+
+chown www-data:www-data /var/lib/omis/extdata/.mailR
+chmod 440 /var/lib/omis/extdata/.mailR
+nano /var/lib/omis/extdata/.mailR
+	
+#-------------------------------------------------------------------------------------------	
+#	Protect gmail password file .mailR - MAC OS X 
+#-------------------------------------------------------------------------------------------	
+chown ???:??? /Library/Frameworks/R.framework/Versions/3.2/Resources/library/omis/extdata/.mailR
+chmod 440 /Library/Frameworks/R.framework/Versions/3.2/Resources/library/omis/extdata/.mailR
+nano /Library/Frameworks/R.framework/Versions/3.2/Resources/library/omis/extdata/.mailR
+
+chown ???:??? /var/lib/omis/extdata/.mailR
+chmod 440 /var/lib/omis/extdata/.mailR
+nano /var/lib/omis/extdata/.mailR
+
+chown ???:??? ~/R/omis/inst/extdata/.mailR
+chmod 440 ~/R/omis/inst/extdata/.mailR
+nano ~/R/omis/inst/extdata/.mailR
+	
+#-------------------------------------------------------------------------------------------	
+#	Test mailR from within R
+#-------------------------------------------------------------------------------------------	
+send.mail(authenticate=TRUE,body="body",from="omis.scarborough@gmail.com",send=TRUE,smtp=list(host.name="smtp.gmail.com",port=465,user.name="omis.scarborough@gmail.com",passwd="********",ssl=TRUE),subject="subject",to="r.blades@hull.ac.uk")
+	
+#-------------------------------------------------------------------------------------------	
+#	Examine user accounts from within R
+#-------------------------------------------------------------------------------------------	
+path <- system.file("extdata", ".users.rda", package="omis")
+load(path)                        			 	
+(users)	
+	
+	
+	
+#-------------------------------------------------------------------------------------------	
+#	Spring Board Footfall - upload 2016-07-01 to 2016-07-31
+#-------------------------------------------------------------------------------------------
+https://api.spring-board.info/api/footfalloutputinfo/r.blades@hull.ac.uk/xr4ywrBL3PZR//20160701/20160731/19970101/20971231
+	
+#-------------------------------------------------------------------------------------------	
+#	Spring Board Footfall - upload example given. Can be loaded via Open URL option at
+#       http://www.jsoneditoronline.org/ as Safari direct URL entry can have issues.
+#-------------------------------------------------------------------------------------------
+https://api.spring-board.info/api/footfalloutputinfo/demo@spring-board.info/demo//20150601/20150601/19970101/20971231
+
+
+
